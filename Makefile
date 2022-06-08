@@ -6,7 +6,7 @@ LAN_FILE=.go
 GO_FILE:=${BINARY_NAME}${LAN_FILE}
 
 build:
-	CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -o ${BINARY_NAME}  ${GO_FILE}
+	CGO_ENABLED=1 GOOS=darwin GOARCH=amd64 go build -o ${BINARY_NAME}  ${GO_FILE}
 install:
 	make build
 	mv ${BINARY_NAME} ${BIN_DIR}
