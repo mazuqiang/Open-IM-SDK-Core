@@ -31,7 +31,7 @@ func main() {
 		log1.Println(http.ListenAndServe("0.0.0.0:6060", nil))
 	}()
 	var sdkWsPort, openIMApiPort, openIMWsPort, logLevel *int
-	var openIMWsAddress, openIMApiAddress *string
+	//var openIMWsAddress, openIMApiAddress *string
 	//
 	//openIMTerminalType := flag.String("terminal_type", "web", "different terminal types")
 
@@ -53,14 +53,23 @@ func main() {
 	APIADDR := "http://43.128.5.63:10000"
 	WSADDR := "ws://43.128.5.63:17778"
 
+	//openIMWsAddress = flag.String("openIM_ws_address", "localhost:10006", "different terminal types")
+	//openIMApiAddress = flag.String("openIM_api_address", "localhost:10002", "different terminal types")
+
 	sysType := runtime.GOOS
 	log.NewPrivateLog(constant.LogFileName, uint32(*logLevel))
 	open_im_sdk.SetHeartbeatInterval(60)
 	switch sysType {
 
 	case "darwin":
-		ws_local_server.InitServer(&sdk_struct.IMConfig{ApiAddr: *openIMApiAddress,
-			WsAddr: *openIMWsAddress, Platform: utils.OSXPlatformID, DataDir: "./"})
+		ws_local_server.InitServer(&sdk_struct.IMConfig{
+			ApiAddr:  "http://" + utils.ServerIP + ":" + utils.IntToString(*openIMApiPort),
+			WsAddr:   "ws://" + utils.ServerIP + ":" + utils.IntToString(*openIMWsPort),
+			Platform: utils.OSXPlatformID,
+			DataDir:  "../db/sdk/",
+		})
+		//ws_local_server.InitServer(&sdk_struct.IMConfig{ApiAddr: *openIMApiAddress,
+		//	WsAddr: *openIMWsAddress, Platform: utils.OSXPlatformID, DataDir: "./"})
 	case "linux":
 		//sdkDBDir:= flag.String("sdk_db_dir","","openIMSDK initialization path")
 		ws_local_server.InitServer(&sdk_struct.IMConfig{ApiAddr: "http://" + utils.ServerIP + ":" + utils.IntToString(*openIMApiPort),
