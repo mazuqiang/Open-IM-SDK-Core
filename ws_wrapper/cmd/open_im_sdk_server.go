@@ -65,7 +65,7 @@ func main() {
 		ws_local_server.InitServer(&sdk_struct.IMConfig{
 			ApiAddr:  "http://" + utils.ServerIP + ":" + utils.IntToString(*openIMApiPort),
 			WsAddr:   "ws://" + utils.ServerIP + ":" + utils.IntToString(*openIMWsPort),
-			Platform: utils.OSXPlatformID,
+			Platform: utils.WebPlatformID,
 			DataDir:  "../db/sdk/",
 		})
 		//ws_local_server.InitServer(&sdk_struct.IMConfig{ApiAddr: *openIMApiAddress,
